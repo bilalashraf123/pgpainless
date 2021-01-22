@@ -90,8 +90,12 @@ public class KeyRingUtils {
         return null;
     }
 
+    public static PGPPublicKey getPublicKeyFrom(PGPKeyRing keyRing, long subKeyId) {
+        return keyRing.getPublicKey(subKeyId);
+    }
+
     public static PGPPublicKey requirePublicKeyFrom(PGPKeyRing keyRing, long subKeyId) {
-        PGPPublicKey publicKey = keyRing.getPublicKey(subKeyId);
+        PGPPublicKey publicKey = getPublicKeyFrom(keyRing, subKeyId);
         if (publicKey == null) {
             throw new IllegalArgumentException("KeyRing does not contain public key with keyID " + Long.toHexString(subKeyId));
         }
