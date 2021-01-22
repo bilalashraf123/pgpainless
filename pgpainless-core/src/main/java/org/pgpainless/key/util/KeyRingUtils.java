@@ -90,6 +90,22 @@ public class KeyRingUtils {
         return null;
     }
 
+    public static PGPPublicKey requirePublicKeyFrom(PGPKeyRing keyRing, long subKeyId) {
+        PGPPublicKey publicKey = keyRing.getPublicKey(subKeyId);
+        if (publicKey == null) {
+            throw new IllegalArgumentException("KeyRing does not contain public key with keyID " + Long.toHexString(subKeyId));
+        }
+        return publicKey;
+    }
+
+    public static PGPSecretKey requireSecretKeyFrom(PGPSecretKeyRing keyRing, long subKeyId) {
+        PGPSecretKey secretKey = keyRing.getSecretKey(subKeyId);
+        if (secretKey == null) {
+            throw new IllegalArgumentException("KeyRing does not contain secret key with keyID " + Long.toHexString(subKeyId));
+        }
+        return secretKey;
+    }
+
     /**
      * Extract a {@link PGPPublicKeyRing} containing all public keys from the provided {@link PGPSecretKeyRing}.
      *
